@@ -25,4 +25,9 @@ class News extends Model
         return $this->hasMany(Comments::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+
 }

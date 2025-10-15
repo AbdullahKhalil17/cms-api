@@ -25,7 +25,7 @@ use App\Http\Controllers\Api\CategoriesController;
     Route::post('me', [AuthController::class, 'me']);
   });
 
-  Route::middleware('auth:api')->group(function () {
+  Route::middleware('jwt.auth')->group(function () {
     Route::prefix('category')->group(function () {
       Route::get('/', [CategoriesController::class, 'index']);
       Route::post('store', [CategoriesController::class, 'store']);

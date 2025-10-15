@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use App\Traits\ApiResponseTrait;
+use Whoops\Exception\Formatter;
 
 class NewsController extends Controller
 {
@@ -13,13 +14,41 @@ class NewsController extends Controller
     public function index()
     {
         // $news = News::get();
-        $news = News::with('comments')->get();
+        // $news = News::with('comments', 'category')->get();
+
+        $news = News::with([
+          'comments' => function($query) {
+            $query->select('id', 'news_id', 'comment');
+          },
+          'category' => function ($query) {
+            $query->select('id', 'category_name');
+          }
+        ])->select('id', 'category_id', 'title', 'summary', 'content', 'created_at')->orderByDesc('id')->get();
         
         if($news->isEmpty()) {
           return $this->errorResponse($news, "لا يوجد منشورات لعرضها");
         }
+
+        $dataNews = [];
         
-        return $this->successResponse($news, 'تم الاستعلام على الاخبار بنجاح');
+        foreach($news as $itemNews){
+          $dataNews = [
+            "category" => $itemNews->category->category_name,
+            'title' => $itemNews->title,
+            'summary' => $itemNews->summary,
+            'content' => $itemNews->content,
+            'created_at' => $itemNews->created_at->format('Y-m-d'),
+            "comments" => $itemNews->comments->map(function ($comment) {
+              return [
+                  'id' => $comment->id,
+                  'news_id' => $comment->news_id,
+                  'comment' => $comment->comment,
+              ];
+            }),
+          ];
+        }
+
+        return $this->successResponse($dataNews, 'تم الاستعلام على الاخبار بنجاح');
     }
 
     public function store(NewsRequest $request)

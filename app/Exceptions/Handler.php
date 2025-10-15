@@ -2,14 +2,11 @@
 
 namespace App\Exceptions;
 
-use App\Traits\ApiResponseTrait;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Auth\AuthenticationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    use ApiResponseTrait;
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
@@ -29,17 +26,5 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     */
-    public function render($request, Throwable $exception)
-    {
-        if ($exception instanceof AuthenticationException) {
-            return $this->errorResponse(null, "يجب تسجيل الدخول اولا", 401);
-        }
-
-        return parent::render($request, $exception);
     }
 }
