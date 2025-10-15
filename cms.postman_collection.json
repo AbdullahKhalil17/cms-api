@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "2398dd0b-1f8e-4d5f-a411-7a567967035e",
+		"name": "cms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29494410"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"mohamed\",\r\n    \"email\" : \"moh@gmail.com\",\r\n    \"password\" : \"123456789\",\r\n    \"password_confirmation\" : \"123456789\",\r\n    \"role\" : \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}auth/register",
+							"host": [
+								"{{baseURL}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"moh@gmail.com\",\r\n    \"password\" : \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}auth/login",
+							"host": [
+								"{{baseURL}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE0NjA5LCJleHAiOjE3NjA1MTgyMDksIm5iZiI6MTc2MDUxNDYwOSwianRpIjoidTlQejBaRnlpRlBXdjdTciIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.E24Wg-h4cllhMCArwzqQ3HijszP29v3Kmv3VI9yKVUI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}auth/logout",
+							"host": [
+								"{{baseURL}}auth"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE0OTQ5LCJleHAiOjE3NjA1MTg1NDksIm5iZiI6MTc2MDUxNDk0OSwianRpIjoiU3Q0Y3l1UmdHeThkNkZlNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.HCwu_bd_3rXkcL9QYwXB_abnstjW4bu_75JEkCyAKUk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_name\" : \"اخري\",\r\n    \"note\" : \"*****************\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}category/store",
+							"host": [
+								"{{baseURL}}category"
+							],
+							"path": [
+								"store"
+							],
+							"query": [
+								{
+									"key": "category_name",
+									"value": "المقال الاول ",
+									"disabled": true
+								},
+								{
+									"key": "note",
+									"value": "ملاحظات المقال الاول",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE0OTQ5LCJleHAiOjE3NjA1MTg1NDksIm5iZiI6MTc2MDUxNDk0OSwianRpIjoiU3Q0Y3l1UmdHeThkNkZlNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.HCwu_bd_3rXkcL9QYwXB_abnstjW4bu_75JEkCyAKUk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}category",
+							"host": [
+								"{{baseURL}}category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE0OTQ5LCJleHAiOjE3NjA1MTg1NDksIm5iZiI6MTc2MDUxNDk0OSwianRpIjoiU3Q0Y3l1UmdHeThkNkZlNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.HCwu_bd_3rXkcL9QYwXB_abnstjW4bu_75JEkCyAKUk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_name\" : \"اخري\",\r\n    \"note\" : \"*****************\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}category/edit/3",
+							"host": [
+								"{{baseURL}}category"
+							],
+							"path": [
+								"edit",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE0NjA5LCJleHAiOjE3NjA1MTgyMDksIm5iZiI6MTc2MDUxNDYwOSwianRpIjoidTlQejBaRnlpRlBXdjdTciIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.E24Wg-h4cllhMCArwzqQ3HijszP29v3Kmv3VI9yKVUI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}category/delete/3",
+							"host": [
+								"{{baseURL}}category"
+							],
+							"path": [
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "news",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE1MTQwLCJleHAiOjE3NjA1MTg3NDAsIm5iZiI6MTc2MDUxNTE0MCwianRpIjoiT0pVRlg4MTRxMVhaUTdQNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.YERo1nxUzTkxZ6g5gtc9Jp9T6MRxymYK-v8syOjVaAs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}news",
+							"host": [
+								"{{baseURL}}news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTEyMDI1LCJleHAiOjE3NjA1MTU2MjUsIm5iZiI6MTc2MDUxMjAyNSwianRpIjoiZXR4UmFNSnA2ekxnazNWYSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.Z2ZtrHkfITfwVNZxz3HojIqA9V2aaAo9WH2HBzA6Hu0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}news/delete/9",
+							"host": [
+								"{{baseURL}}news"
+							],
+							"path": [
+								"delete",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE1MTQwLCJleHAiOjE3NjA1MTg3NDAsIm5iZiI6MTc2MDUxNTE0MCwianRpIjoiT0pVRlg4MTRxMVhaUTdQNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.YERo1nxUzTkxZ6g5gtc9Jp9T6MRxymYK-v8syOjVaAs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_id\" : 1,\r\n    \"title\" : \"حالة الطقس\",\r\n    \"summary\" : \"درجة حرارة مرتفعة بمعظم المناطق اليوم\",\r\n    \"content\" : \"**********\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}news/store",
+							"host": [
+								"{{baseURL}}news"
+							],
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE1MTQwLCJleHAiOjE3NjA1MTg3NDAsIm5iZiI6MTc2MDUxNTE0MCwianRpIjoiT0pVRlg4MTRxMVhaUTdQNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.YERo1nxUzTkxZ6g5gtc9Jp9T6MRxymYK-v8syOjVaAs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_id\" : 1,\r\n    \"title\" : \"حالة الطقس\",\r\n    \"summary\" : \"درجة حرارة مرتفعة بمعظم المناطق اليوم\",\r\n    \"content\" : \"9999\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}news/update/1",
+							"host": [
+								"{{baseURL}}news"
+							],
+							"path": [
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE1MTQwLCJleHAiOjE3NjA1MTg3NDAsIm5iZiI6MTc2MDUxNTE0MCwianRpIjoiT0pVRlg4MTRxMVhaUTdQNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.YERo1nxUzTkxZ6g5gtc9Jp9T6MRxymYK-v8syOjVaAs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"news_id\" : 1,\r\n    \"comment\" : \"يا الله\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}comment/store",
+							"host": [
+								"{{baseURL}}comment"
+							],
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE1MTQwLCJleHAiOjE3NjA1MTg3NDAsIm5iZiI6MTc2MDUxNTE0MCwianRpIjoiT0pVRlg4MTRxMVhaUTdQNSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.YERo1nxUzTkxZ6g5gtc9Jp9T6MRxymYK-v8syOjVaAs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"news_id\" : 1,\r\n    \"comment\" : \"999999 يا الله\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}comment/update/1",
+							"host": [
+								"{{baseURL}}comment"
+							],
+							"path": [
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vY21zLWFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYwNTE2Mzk2LCJleHAiOjE3NjA1MTk5OTYsIm5iZiI6MTc2MDUxNjM5NiwianRpIjoiZGhCQjh1SGY1QlVFeDVaWSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.gCx90d6R4h2amaYVTaICLeaHZtHvPZe0CZxKCEDyVEM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}comment/delete/1",
+							"host": [
+								"{{baseURL}}comment"
+							],
+							"path": [
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": ""
+		},
+		{
+			"key": "{baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
