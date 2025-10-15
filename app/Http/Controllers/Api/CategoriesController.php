@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoriesRequest;
 use App\Models\Categories;
 use App\Traits\ApiResponseTrait;
-use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
@@ -21,22 +21,12 @@ class CategoriesController extends Controller
         return $this->successResponse($category, "تم الاستعلام على الفئات بنجاح");
     }
 
-    public function store(Request $request)
+    public function store(CategoriesRequest $request)
     {
-        $request->validate([
-            'category_name' => 'required|string|min:10|max:250',
-            'note' => 'required|string|min:10|max:250',
-        ], [
-            'category_name.required' => 'اسم الفئة مطلوب',
-            'category_name.string' => 'يجب أن يكون اسم الفئة مكونًا من حروف',
-            'category_name.min' => 'يجب ألا يقل اسم الفئة عن 10 أحرف',
-            'category_name.max' => 'يجب ألا يزيد اسم الفئة عن 250 حرفًا',
+        if (auth()->user()->role !== 'admin') {
+            return $this->errorResponse(null, 'غير مسموح لك بإضافة فئة', 403);
+        }
 
-            'note.required' => 'الوصف مطلوب',
-            'note.string' => 'يجب أن يكون الوصف نصًا فقط',
-            'note.min' => 'يجب ألا يقل الوصف عن 10 أحرف',
-            'note.max' => 'يجب ألا يزيد الوصف عن 250 حرفًا',
-        ]);
         try{
           $data = Categories::create([
             'category_name' => $request->input('category_name'),
@@ -49,22 +39,12 @@ class CategoriesController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoriesRequest $request, $id)
     {
-        $request->validate([
-            'category_name' => 'required|string|min:10|max:250',
-            'note' => 'required|string|min:10|max:250',
-        ], [
-            'category_name.required' => 'اسم الفئة مطلوب',
-            'category_name.string' => 'يجب أن يكون اسم الفئة مكونًا من حروف',
-            'category_name.min' => 'يجب ألا يقل اسم الفئة عن 10 أحرف',
-            'category_name.max' => 'يجب ألا يزيد اسم الفئة عن 250 حرفًا',
+        if (auth()->user()->role !== 'admin') {
+            return $this->errorResponse(null, 'غير مسموح لك بتعديل فئة', 403);
+        }
 
-            'note.required' => 'الوصف مطلوب',
-            'note.string' => 'يجب أن يكون الوصف نصًا فقط',
-            'note.min' => 'يجب ألا يقل الوصف عن 10 أحرف',
-            'note.max' => 'يجب ألا يزيد الوصف عن 250 حرفًا',
-        ]);
         try{
           $category = Categories::find($id);
 
@@ -84,12 +64,16 @@ class CategoriesController extends Controller
 
     public function destory($id)
     {
+        if (auth()->user()->role !== 'admin') {
+            return $this->errorResponse(null, 'غير مسموح لك بحذف فئة', 403);
+        }
+
       $category = Categories::find($id);
 
       if(!$category) {
         return $this->errorResponse(null, 'الفئة غير موجودة', 404);
       }
-      
+
       $category->delete($id);
       return $this->successResponse(null, 'تم حذف الفئة بنجاح', 200);
     }

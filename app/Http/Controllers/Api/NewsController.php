@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use App\Traits\ApiResponseTrait;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -22,23 +22,11 @@ class NewsController extends Controller
         return $this->successResponse($news, 'تم الاستعلام على الاخبار بنجاح');
     }
 
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|string|min:5|max:255',
-            'summary' => 'nullable|string|max:500',
-            'content' => 'required|string',
-        ], [
-            'user_id.required' => 'الكاتب مطلوب',
-            'category_id.required' => 'القسم مطلوب',
-            'title.required' => 'العنوان مطلوب',
-            'content.required' => 'المحتوى مطلوب',
-        ]);
         try {
           $news = News::create([
-            'user_id' => $request->input('user_id'),
+            'user_id' => auth()->id(),
             'category_id' => $request->input('category_id'),
             'title' => $request->input('title'),
             'summary' => $request->input('summary'),
@@ -51,7 +39,7 @@ class NewsController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, $id)
     {
         $news = News::find($id);
 
@@ -59,17 +47,10 @@ class NewsController extends Controller
             return $this->errorResponse(null, 'الخبر غير موجود', 404);
         }
 
-        $request->validate([
-            'category_id' => 'sometimes|exists:categories,id',
-            'title' => 'sometimes|string|min:5|max:255',
-            'summary' => 'nullable|string|max:500',
-            'content' => 'sometimes|string',
-        ], [
-            'category_id.exists' => 'القسم غير موجود',
-            'title.min' => 'يجب ألا يقل العنوان عن 5 أحرف',
-            'title.max' => 'يجب ألا يزيد العنوان عن 255 حرفًا',
-            'content.string' => 'يجب أن يكون المحتوى نصًا',
-        ]);
+        if ($news->user_id !== auth()->id() ) {
+            return $this->errorResponse(null, 'غير مسموح لك بتعديل الخبر', 403);
+        }
+
         try {
           $news->update([
             'category_id' => $request->input('category_id'),
@@ -87,13 +68,17 @@ class NewsController extends Controller
 
     public function destroy($id)
     {
-      $category = News::find($id);
+      $news = News::find($id);
 
-      if(!$category) {
+      if(!$news) {
         return $this->errorResponse(null, 'الخبر غير موجود', 404);
       }
-      
-      $category->delete($id);
+
+      if ($news->user_id !== auth()->id() && auth()->user()->role !== 'admin') {
+            return $this->errorResponse(null, 'غير مسموح لك بحذف الخبر', 403);
+      }
+
+      $news->delete();
       return $this->successResponse(null, 'تم حذف الخبر بنجاح', 200);
     }
 

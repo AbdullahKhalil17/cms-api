@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('summary')->nullable();
             $table->longText('content');
-            $table->emum('status', [0, 1])->default(1); // 0 => publish, 1=> unpublish
+            $table->enum('status', [0, 1])->default(1); // 0 => publish, 1=> unpublish
             $table->timestamps();
         });
     }
