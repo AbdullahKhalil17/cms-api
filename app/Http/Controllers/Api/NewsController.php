@@ -32,7 +32,7 @@ class NewsController extends Controller
         $dataNews = [];
         
         foreach($news as $itemNews){
-          $dataNews = [
+          $dataNews[] = [
             "category" => $itemNews->category->category_name,
             'title' => $itemNews->title,
             'summary' => $itemNews->summary,
